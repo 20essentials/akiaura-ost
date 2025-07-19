@@ -3,27 +3,28 @@
 const nameBand = 'AKIAURA';
 
 let nameSongs = [
-  'SLEEPWALKER' /*1*/,
-  'DREAMSCAPE' /*2*/,
-  'MIDNIGHT CALL' /*3*/,
-  'ECHOES' /*4*/,
-  'LULLABY' /*5*/,
-  'SHADOWS' /*6*/,
-  'TWILIGHT' /*7*/,
-  'FADE AWAY' /*8*/,
-  'MOONLIGHT' /*9*/,
-  'DAYDREAM' /*10*/,
-  'WANDERLUST' /*11*/,
-  'NIGHTFALL' /*12*/,
-  'REVERIE' /*13*/,
-  'AWAKENING' /*14*/,
-  'STARLIGHT' /*15*/,
-  'WHISPERS' /*16*/,
-  'SERENADE' /*17*/,
-  'ILLUSION' /*18*/,
-  'TRANQUILITY' /*19*/,
-  'NIGHTMARE' /*20*/
+    "SLEEPWALKER", /*1*/
+    "DREAMSCAPE", /*2*/
+    "MIDNIGHT CALL", /*3*/
+    "ECHOES", /*4*/
+    "LULLABY", /*5*/
+    "SHADOWS", /*6*/
+    "TWILIGHT", /*7*/
+    "FADE AWAY", /*8*/
+    "MOONLIGHT", /*9*/
+    "DAYDREAM", /*10*/
+    "WANDERLUST", /*11*/
+    "NIGHTFALL", /*12*/
+    "REVERIE", /*13*/
+    "AWAKENING", /*14*/
+    "STARLIGHT", /*15*/
+    "WHISPERS", /*16*/
+    "SERENADE", /*17*/
+    "ILLUSION", /*18*/
+    "TRANQUILITY", /*19*/
+    "NIGHTMARE" /*20*/
 ];
+
 
 const arraySongs = [
   'songs/n1.mp3',
@@ -50,26 +51,26 @@ const arraySongs = [
 
 /******************** MEDIA SESSION CONFIG ********************/
 const playlist = [
-  { title: nameSongs[0], artist: nameBand, url: arraySongs[0] },
-  { title: nameSongs[1], artist: nameBand, url: arraySongs[1] },
-  { title: nameSongs[2], artist: nameBand, url: arraySongs[2] },
-  { title: nameSongs[3], artist: nameBand, url: arraySongs[3] },
-  { title: nameSongs[4], artist: nameBand, url: arraySongs[4] },
-  { title: nameSongs[5], artist: nameBand, url: arraySongs[5] },
-  { title: nameSongs[6], artist: nameBand, url: arraySongs[6] },
-  { title: nameSongs[7], artist: nameBand, url: arraySongs[7] },
-  { title: nameSongs[8], artist: nameBand, url: arraySongs[8] },
-  { title: nameSongs[9], artist: nameBand, url: arraySongs[9] },
-  { title: nameSongs[10], artist: nameBand, url: arraySongs[10] },
-  { title: nameSongs[11], artist: nameBand, url: arraySongs[11] },
-  { title: nameSongs[12], artist: nameBand, url: arraySongs[12] },
-  { title: nameSongs[13], artist: nameBand, url: arraySongs[13] },
-  { title: nameSongs[14], artist: nameBand, url: arraySongs[14] },
-  { title: nameSongs[15], artist: nameBand, url: arraySongs[15] },
-  { title: nameSongs[16], artist: nameBand, url: arraySongs[16] },
-  { title: nameSongs[17], artist: nameBand, url: arraySongs[17] },
-  { title: nameSongs[18], artist: nameBand, url: arraySongs[18] },
-  { title: nameSongs[19], artist: nameBand, url: arraySongs[19] }
+  { title: nameSongs[0]?.trim(), artist: nameBand, url: arraySongs[0] },
+  { title: nameSongs[1]?.trim(), artist: nameBand, url: arraySongs[1] },
+  { title: nameSongs[2]?.trim(), artist: nameBand, url: arraySongs[2] },
+  { title: nameSongs[3]?.trim(), artist: nameBand, url: arraySongs[3] },
+  { title: nameSongs[4]?.trim(), artist: nameBand, url: arraySongs[4] },
+  { title: nameSongs[5]?.trim(), artist: nameBand, url: arraySongs[5] },
+  { title: nameSongs[6]?.trim(), artist: nameBand, url: arraySongs[6] },
+  { title: nameSongs[7]?.trim(), artist: nameBand, url: arraySongs[7] },
+  { title: nameSongs[8]?.trim(), artist: nameBand, url: arraySongs[8] },
+  { title: nameSongs[9]?.trim(), artist: nameBand, url: arraySongs[9] },
+  { title: nameSongs[10]?.trim(), artist: nameBand, url: arraySongs[10] },
+  { title: nameSongs[11]?.trim(), artist: nameBand, url: arraySongs[11] },
+  { title: nameSongs[12]?.trim(), artist: nameBand, url: arraySongs[12] },
+  { title: nameSongs[13]?.trim(), artist: nameBand, url: arraySongs[13] },
+  { title: nameSongs[14]?.trim(), artist: nameBand, url: arraySongs[14] },
+  { title: nameSongs[15]?.trim(), artist: nameBand, url: arraySongs[15] },
+  { title: nameSongs[16]?.trim(), artist: nameBand, url: arraySongs[16] },
+  { title: nameSongs[17]?.trim(), artist: nameBand, url: arraySongs[17] },
+  { title: nameSongs[18]?.trim(), artist: nameBand, url: arraySongs[18] },
+  { title: nameSongs[19]?.trim(), artist: nameBand, url: arraySongs[19] }
 ];
 
 function toCapitalize(text = '') {
@@ -273,7 +274,6 @@ const actualButtonPlayActive = (index = 0) => {
 
   d.addEventListener('input', e => {
     if (e.target === $inputRange) {
-      actualButtonPlayActive(index);
       $audio.currentTime = e.target.value;
       $audio.play();
     }
@@ -560,9 +560,10 @@ d.addEventListener('click', e => {
       arrayCards.forEach((card, i) => (card.style.color = arrayColors[i]));
       listNumbersSongs = [];
     }
+    const arrayPlayButtons = [...$$(cardPlayButtonClass)];
 
     blockPlayPauseStopBUTTON();
-    const index = [...$$(cardPlayButtonClass)].indexOf(e.target);
+    let index = arrayPlayButtons.indexOf(e.target);
     _removeClassBlockedButtonNextSiblings(index);
 
     let audioActual = d.createElement('audio');
@@ -591,6 +592,13 @@ d.addEventListener('click', e => {
       );
       return;
     }
+
+    $audio.onended = () => {
+      index = index = (index + 1) % playlist.length;
+      const btnPlayNew = arrayPlayButtons[index];
+      if (index === 0) return;
+      btnPlayNew.click();
+    };
 
     return;
   }
